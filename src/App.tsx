@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AuthProvider, useAuth } from '@/lib/auth';
 import { ThemeProvider } from '@/lib/theme';
@@ -8,12 +8,23 @@ import { Classes } from '@/components/Classes';
 import { AIAssistant } from '@/components/AIAssistant';
 import { Resources } from '@/components/Resources';
 import { AuthModal } from '@/components/AuthModal';
+import { Presentation } from '@/components/Presentation';
 import { GraduationCap } from 'lucide-react';
 
 function AppContent() {
   const { user, loading } = useAuth();
   const [tab, setTab] = useState<TabId>('dashboard');
   const [authOpen, setAuthOpen] = useState(false);
+  const [showPresentation, setShowPresentation] = useState(false);
+
+  useEffect(() => {
+    if (window.location.hash === '#presentation') setShowPresentation(true);
+    const onHash = () => setShowPresentation(window.location.hash === '#presentation');
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+
+  if (showPresentation) return <Presentation />;
 
   if (loading) {
     return (
@@ -82,6 +93,12 @@ function Landing({ onSignIn }: { onSignIn: () => void }) {
           Get started — it's free
         </button>
         <p className="text-xs text-secondary mt-6">Sign in or create an account to sync your study hub.</p>
+        <button
+          onClick={() => { window.location.hash = 'presentation'; }}
+          className="mt-4 text-sm text-accent hover:underline"
+        >
+          View project presentation →
+        </button>
       </motion.div>
     </div>
   );
