@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  GraduationCap, LayoutDashboard, BookOpen, Sparkles, Bookmark,
+  GraduationCap, LayoutDashboard, BookOpen, Bookmark,
   PenTool, Code2, ChevronLeft, ChevronRight, Maximize2,
   ListTodo, AlarmClock, NotebookPen, FileText, Globe,
   MousePointer2, Palette, Layers, Zap, CheckCircle2, ArrowRight,
@@ -110,7 +110,7 @@ function Pill({ icon: Icon, label, color }: { icon: typeof Zap; label: string; c
 /* ── Mini UI mockups (stylized screenshots) ────────────────── */
 
 function MockNavbar({ active = 'Dashboard' }: { active?: string }) {
-  const tabs = ['Dashboard', 'Classes', 'AI Assistant', 'Resources'];
+  const tabs = ['Dashboard', 'Classes', 'Resources'];
   return (
     <div className="flex items-center justify-between px-4 h-11 rounded-2xl bg-white/8 border border-white/10 backdrop-blur-xl">
       <div className="flex items-center gap-2">
@@ -211,39 +211,6 @@ function MockClasses() {
           <p className="text-[11px] font-medium truncate">{s.name}</p>
         </div>
       ))}
-    </div>
-  );
-}
-
-function MockAssistant() {
-  return (
-    <div className="rounded-2xl bg-white/6 border border-white/10 p-4 backdrop-blur-md">
-      <div className="flex items-center gap-2 mb-3">
-        <div className="w-7 h-7 rounded-lg bg-violet-400/20 flex items-center justify-center">
-          <Sparkles size={14} className="text-violet-300" />
-        </div>
-        <span className="text-xs font-semibold">AI Study Assistant</span>
-      </div>
-      <div className="space-y-2.5">
-        <div className="flex gap-2 flex-row-reverse">
-          <div className="w-6 h-6 rounded-full bg-sky-400/25 flex items-center justify-center shrink-0">
-            <span className="text-[9px] font-bold text-sky-200">JD</span>
-          </div>
-          <div className="rounded-xl bg-sky-500/25 px-3 py-2 max-w-[70%]">
-            <p className="text-[11px] text-white/80">Explain recursion simply</p>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-            <Sparkles size={12} className="text-violet-300" />
-          </div>
-          <div className="rounded-xl bg-white/8 px-3 py-2 max-w-[75%]">
-            <p className="text-[11px] text-white/70 leading-relaxed">
-              Recursion is when a function calls itself to solve a smaller version of the same problem. Think of Russian nesting dolls…
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
@@ -425,7 +392,6 @@ function PlannerDashboardSlide() {
 function PlannerInstrumentsSlide() {
   const instruments = [
     { icon: BookOpen, name: 'Classes', color: '#34d399', desc: 'Subject folders with notes, assignments & exam dates', mock: <MockClasses /> },
-    { icon: Sparkles, name: 'AI Assistant', color: '#a78bfa', desc: 'Gemini-powered chat for explanations, summaries & quizzes', mock: <MockAssistant /> },
     { icon: Bookmark, name: 'Resources', color: '#38bdf8', desc: 'Categorized bookmarks for study tools & links', mock: <MockResources /> },
   ];
   return (
@@ -437,10 +403,10 @@ function PlannerInstrumentsSlide() {
           </div>
           <span className="text-emerald-300 font-semibold text-sm uppercase tracking-wide">Planner</span>
         </div>
-        <h2 className="text-2xl font-bold mb-1">Three Planning Instruments</h2>
+        <h2 className="text-2xl font-bold mb-1">Two Planning Instruments</h2>
         <p className="text-white/40 text-sm mb-5">Each tab serves a distinct study workflow</p>
       </StaggerItem>
-      <div className="grid grid-cols-3 gap-5 flex-1">
+      <div className="grid grid-cols-2 gap-5 flex-1">
         {instruments.map((inst, i) => (
           <StaggerItem key={inst.name} delay={0.25 + i * 0.15} className="flex flex-col">
             <div className="flex items-center gap-2 mb-3">
@@ -541,11 +507,10 @@ function BuilderStackSlide() {
     { icon: Code2, name: 'React + TypeScript', color: '#38bdf8', desc: 'Component-based UI with full type safety' },
     { icon: Zap, name: 'Vite', color: '#fbbf24', desc: 'Lightning-fast dev server & build tooling' },
     { icon: Layers, name: 'Tailwind CSS', color: '#34d399', desc: 'Utility-first styling with custom design tokens' },
-    { icon: Sparkles, name: 'Framer Motion', color: '#f472b6', desc: 'Spring animations, layout transitions & gestures' },
+    { icon: Zap, name: 'Framer Motion', color: '#f472b6', desc: 'Spring animations, layout transitions & gestures' },
     { icon: GraduationCap, name: 'Supabase', color: '#a78bfa', desc: 'Postgres database, auth & edge functions' },
-    { icon: Sparkles, name: 'Gemini AI', color: '#818cf8', desc: 'Streaming AI chat via edge function proxy' },
   ];
-  const flow = ['Auth', 'RLS Policies', 'CRUD Queries', 'Edge Function', 'Gemini API', 'Streaming Response'];
+  const flow = ['Auth', 'RLS Policies', 'CRUD Queries', 'Realtime Sync'];
   return (
     <div className="grid grid-cols-2 gap-8 h-full items-center px-10 max-w-5xl mx-auto">
       <div>
@@ -562,7 +527,7 @@ function BuilderStackSlide() {
         </StaggerItem>
         <StaggerItem delay={0.3}>
           <p className="text-white/50 text-sm leading-relaxed mb-6">
-            Modern, type-safe, and serverless. The frontend talks directly to Supabase with row-level security, while the AI chat streams through a dedicated edge function.
+            Modern, type-safe, and serverless. The frontend talks directly to Supabase with row-level security keeping every student's data private.
           </p>
         </StaggerItem>
         <div className="space-y-2.5">
@@ -610,11 +575,7 @@ function BuilderStackSlide() {
             </div>
             <div className="flex items-center gap-2 mt-1.5">
               <CheckCircle2 size={14} className="text-emerald-400" />
-              <span className="text-xs text-white/50">JWT-verified edge function</span>
-            </div>
-            <div className="flex items-center gap-2 mt-1.5">
-              <CheckCircle2 size={14} className="text-emerald-400" />
-              <span className="text-xs text-white/50">Real-time streaming responses</span>
+              <span className="text-xs text-white/50">Realtime data sync</span>
             </div>
           </div>
         </div>
@@ -667,7 +628,7 @@ function ClosingSlide() {
         </div>
       </StaggerItem>
       <StaggerItem delay={0.9}>
-        <p className="text-sm text-white/30">Study Hub — Built with React, Supabase & Gemini AI</p>
+        <p className="text-sm text-white/30">Study Hub — Built with React, TypeScript & Supabase</p>
       </StaggerItem>
     </div>
   );

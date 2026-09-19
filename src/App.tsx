@@ -5,7 +5,6 @@ import { ThemeProvider } from '@/lib/theme';
 import { Navbar, type TabId } from '@/components/Navbar';
 import { Dashboard } from '@/components/Dashboard';
 import { Classes } from '@/components/Classes';
-import { AIAssistant } from '@/components/AIAssistant';
 import { Resources } from '@/components/Resources';
 import { AuthModal } from '@/components/AuthModal';
 import { Presentation } from '@/components/Presentation';
@@ -62,7 +61,6 @@ function AppContent() {
           >
             {tab === 'dashboard' && <Dashboard />}
             {tab === 'classes' && <Classes />}
-            {tab === 'assistant' && <AIAssistant />}
             {tab === 'resources' && <Resources />}
           </motion.div>
         </AnimatePresence>
@@ -87,7 +85,7 @@ function Landing({ onSignIn }: { onSignIn: () => void }) {
           Your learning command center.
         </h1>
         <p className="text-lg text-secondary mb-8 text-balance">
-          Organize to-dos, track exams, manage class notes, chat with an AI study assistant, and bookmark your favorite resources — all in one beautiful workspace.
+          Organize to-dos, track exams, manage class notes, and bookmark your favorite resources — all in one beautiful workspace.
         </p>
         <button onClick={onSignIn} className="btn-accent text-base !px-8 !py-3">
           Get started — it's free
