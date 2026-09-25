@@ -6,6 +6,7 @@ import { Navbar, type TabId } from '@/components/Navbar';
 import { Dashboard } from '@/components/Dashboard';
 import { Classes } from '@/components/Classes';
 import { Resources } from '@/components/Resources';
+import { PdfExcerpt } from '@/components/PdfExcerpt';
 import { AuthModal } from '@/components/AuthModal';
 import { Presentation } from '@/components/Presentation';
 import { GraduationCap } from 'lucide-react';
@@ -62,6 +63,7 @@ function AppContent() {
             {tab === 'dashboard' && <Dashboard />}
             {tab === 'classes' && <Classes />}
             {tab === 'resources' && <Resources />}
+            {tab === 'pdf' && <PdfExcerpt />}
           </motion.div>
         </AnimatePresence>
       </main>

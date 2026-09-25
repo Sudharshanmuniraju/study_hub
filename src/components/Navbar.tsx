@@ -5,7 +5,7 @@ import { useTheme } from '@/lib/theme';
 import { useAuth } from '@/lib/auth';
 import { AuthModal } from './AuthModal';
 
-export type TabId = 'dashboard' | 'classes' | 'resources';
+export type TabId = 'dashboard' | 'classes' | 'resources' | 'pdf';
 
 type NavbarProps = {
   activeTab: TabId;
@@ -16,6 +16,7 @@ const TABS: { id: TabId; label: string }[] = [
   { id: 'dashboard', label: 'Dashboard' },
   { id: 'classes', label: 'Classes' },
   { id: 'resources', label: 'Resources'},
+  { id: 'pdf', label: 'PDF Tools' },
 ];
 
 export function Navbar({ activeTab, onTabChange }: NavbarProps) {
