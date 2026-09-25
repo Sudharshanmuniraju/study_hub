@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Plus, FolderPlus, NotebookPen, Link2, Trash2, X, ChevronRight, GraduationCap, FileText,
+  Plus, FolderPlus, NotebookPen, Trash2, X, ChevronRight, GraduationCap, FileText,
 } from 'lucide-react';
 import { supabase, type Subject, type Note, type Assignment, type Exam } from '@/lib/supabase';
 import { useAuth } from '@/lib/auth';
@@ -42,7 +42,6 @@ export function Classes() {
   const [editingNote, setEditingNote] = useState<Note | null>(null);
   const [noteTitle, setNoteTitle] = useState('');
   const [noteContent, setNoteContent] = useState('');
-  const [noteSlideUrl, setNoteSlideUrl] = useState('');
 
   // Add assignment
   const [newAssignment, setNewAssignment] = useState('');
@@ -101,7 +100,6 @@ export function Classes() {
     setEditingNote(note);
     setNoteTitle(note?.title ?? '');
     setNoteContent(note?.content ?? '');
-    setNoteSlideUrl(note?.slide_url ?? '');
     setShowNoteEditor(true);
   };
 
@@ -110,7 +108,7 @@ export function Classes() {
     if (editingNote) {
       const { data } = await supabase
         .from('notes')
-        .update({ title: noteTitle.trim(), content: noteContent, slide_url: noteSlideUrl || null, updated_at: new Date().toISOString() })
+        .update({ title: noteTitle.trim(), content: noteContent, updated_at: new Date().toISOString() })
         .eq('id', editingNote.id)
         .select()
         .single();
@@ -118,7 +116,7 @@ export function Classes() {
     } else {
       const { data } = await supabase
         .from('notes')
-        .insert({ subject_id: activeSubject.id, title: noteTitle.trim(), content: noteContent, slide_url: noteSlideUrl || null })
+        .insert({ subject_id: activeSubject.id, title: noteTitle.trim(), content: noteContent })
         .select()
         .single();
       if (data) setNotes((prev) => [data as Note, ...prev]);
@@ -286,11 +284,6 @@ export function Classes() {
                       <div className="min-w-0 flex-1">
                         <p className="text-sm font-medium truncate">{note.title}</p>
                         <p className="text-xs text-secondary line-clamp-2 mt-1">{note.content || 'Empty note'}</p>
-                        {note.slide_url && (
-                          <p className="text-xs text-accent flex items-center gap-1 mt-1.5 truncate">
-                            <Link2 size={11} /> {note.slide_url}
-                          </p>
-                        )}
                       </div>
                       <button
                         onClick={(e) => { e.stopPropagation(); deleteNote(note.id); }}
@@ -445,12 +438,6 @@ export function Classes() {
                   placeholder="Write your note content…"
                   value={noteContent}
                   onChange={(e) => setNoteContent(e.target.value)}
-                />
-                <input
-                  className="glass-input"
-                  placeholder="Link to lecture slides (optional URL)"
-                  value={noteSlideUrl}
-                  onChange={(e) => setNoteSlideUrl(e.target.value)}
                 />
                 <div className="flex gap-2 justify-end">
                   <button onClick={() => setShowNoteEditor(false)} className="btn-ghost">Cancel</button>
